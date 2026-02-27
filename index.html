@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Alaina ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    text-align: center;
+    overflow-x: hidden;
+    color: white;
+}
+
+.container {
+    padding: 30px;
+}
+
+input {
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    width: 200px;
+    text-align: center;
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: #e75480;
+    font-weight: bold;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+
+img {
+    width: 90%;
+    max-width: 350px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+.question {
+    margin-top: 30px;
+}
+
+#timer {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.love-paragraph {
+    margin-top: 30px;
+    font-size: 17px;
+    line-height: 1.6;
+    background: rgba(255,255,255,0.2);
+    padding: 20px;
+    border-radius: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="passwordScreen">
+    <h2>🔐 Private Message For Alaina Delgado</h2>
+    <p>Enter the password to unlock 💕</p>
+    <input type="password" id="password">
+    <br>
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="hint"></p>
+</div>
+
+<div class="container hidden" id="mainContent">
+    <h1>Alaina ❤️ Anthony</h1>
+    <p>Since August 15, 2024</p>
+    <div id="timer"></div>
+
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+
+    <div class="love-paragraph">
+        I have never felt more love for anyone but you.  
+        I have never imagined to love someone like you and although there were many mistakes on the way,  
+        we came out on the correct end and we built where we are today.  
+        I promise to continue fighting and continue trying for better or for worse.  
+        I love you. ❤️
+    </div>
+
+    <div class="question">
+        <h3>Are you mine? 💕</h3>
+        <button onclick="yesAnswer()">Yes</button>
+        <button class="no-btn">No</button>
+    </div>
+
+    <div class="question">
+        <h3>Do you love me? ❤️</h3>
+        <button onclick="yesAnswer()">Yes</button>
+        <button class="no-btn">No</button>
+    </div>
+
+    <div class="question">
+        <h3>Do you love us? 💍</h3>
+        <button onclick="yesAnswer()">Yes</button>
+        <button class="no-btn">No</button>
+    </div>
+
+    <div class="question">
+        <h2>Will you be mine forever? 💖</h2>
+        <button onclick="forever()">Forever Yes</button>
+    </div>
+
+    <p id="response"></p>
+
+    <!-- MUSIC -->
+    <iframe width="0" height="0"
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&loop=1&playlist=YOUR_VIDEO_ID"
+        frameborder="0" allow="autoplay">
+    </iframe>
+
+</div>
+
+<script>
+let attempts = 0;
+
+function checkPassword() {
+    const password = document.getElementById("password").value;
+    const hint = document.getElementById("hint");
+
+    if(password.toLowerCase() === "mexican") {
+        document.getElementById("passwordScreen").classList.add("hidden");
+        document.getElementById("mainContent").classList.remove("hidden");
+    } else {
+        attempts++;
+        if(attempts === 1){
+            hint.innerText = "Hint: It’s a place I always say you are from.";
+        } else if(attempts === 2){
+            hint.innerText = "Hint: A person Donald Trump doesn’t like.";
+        } else {
+            hint.innerText = "You got this baby ❤️";
+        }
+    }
+}
+
+function yesAnswer() {
+    document.getElementById("response").innerText = "That’s my girl ❤️";
+    confettiExplosion();
+    createHeart();
+}
+
+function forever() {
+    document.getElementById("response").innerText =
+        "You and me forever Alaina. I love you more than anything. ❤️ - Anthony";
