@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alaina ❤️ Anthony</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(160deg, #1e1e2f, #3a1c71, #ff758c);
+    background-size: 300% 300%;
+    animation: gradientMove 12s ease infinite;
+    text-align: center;
+    color: white;
+    overflow-x: hidden;
+}
+
+@keyframes gradientMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+.container {
+    padding: 30px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+input {
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    width: 220px;
+    text-align: center;
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: #e91e63;
+    font-weight: bold;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover { transform: scale(1.05); }
+
+.hidden { display: none; }
+
+img {
+    width: 90%;
+    max-width: 350px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.love-box {
+    margin-top: 30px;
+    font-size: 18px;
+    line-height: 1.7;
+    background: rgba(255,255,255,0.15);
+    padding: 25px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    min-height: 120px;
+}
+
+#timer { margin-top: 10px; }
+
+.final-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg,#ff758c,#ff7eb3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    text-align: center;
+    z-index: 10;
+    animation: fadeIn 1s ease-in-out;
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="passwordScreen">
+    <h2>🔐 A Private World For Alaina</h2>
+    <p>Only you can unlock this ❤️</p>
+    <input type="password" id="password">
+    <br><br>
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="hint"></p>
+</div>
+
+<div class="container hidden" id="mainContent">
+    <h1>Alaina ❤️ Anthony</h1>
+    <p>Since August 15, 2024</p>
+    <div id="timer"></div>
+
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+
+    <div class="love-box" id="typedText"></div>
+
+    <div>
+        <h3>Are you mine? 💕</h3>
+        <button onclick="answer('Forever mine ❤️')">Yes</button>
+        <button class="no-btn">No</button>
+    </div>
+
+    <div>
+        <h3>Do you love me? ❤️</h3>
+        <button onclick="answer('I knew it 😘')">Yes</button>
+        <button class="no-btn">No</button>
+    </div>
+
+    <div>
+        <h3>Do you love us? 💍</h3>
+        <button onclick="answer('Us forever ❤️')">Yes</button>
+        <button class="no-btn">No</button>
+    </div>
+
+    <div>
+        <h2>Will you be mine forever? 💖</h2>
+        <button onclick="forever()">Forever Yes</button>
+    </div>
+
+    <p id="response"></p>
+</div>
+
+<script>
+let attempts = 0;
+
+function checkPassword() {
+    const input = document.getElementById("password").value.toLowerCase();
+    const hint = document.getElementById("hint");
+
+    if (input === "mexican") {
+        document.getElementById("passwordScreen").classList.add("hidden");
+        document.getElementById("mainContent").classList.remove("hidden");
+        updateTimer();
+        typeLetter();
+    } else {
+        attempts++;
+        if (attempts === 1) {
+            hint.innerText = "Hint: It’s a place I always say you are from.";
+        } else if (attempts === 2) {
+            hint.innerText = "Hint: A person Donald Trump doesn’t like.";
+        } else {
+            hint.innerText = "You’re close baby ❤️";
+        }
+    }
+}
+
+/* Typing Animation */
+const letter = `I have never felt more love for anyone but you.
+I have never imagined to love someone like you and although there were many mistakes on the way,
+we came out on the correct end and we built where we are today.
+I promise to continue fighting and continue trying for better or for worse.
+I love you forever Alaina. ❤️`;
+
+function typeLetter() {
+    let i = 0;
+    const speed = 40;
+    function typing() {
+        if (i < letter.length) {
+            document.getElementById("typedText").innerHTML += letter.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+}
+
+/* Floating hearts generator */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}, 500);
+
+function answer(text) {
+    document.getElementById("response").innerText = text;
+    confetti({particleCount: 120, spread: 80});
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".no-btn").forEach(btn => {
+        btn.addEventListener("touchstart", moveButton);
+        btn.addEventListener("mouseover", moveButton);
+    });
+});
+
+function moveButton(e) {
+    const button = e.target;
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    button.style.position = "absolute";
+    button.style.left = x + "px";
+    button.style.top = y + "px";
+}
+
+function forever() {
+    const final = document.createElement("div");
+    final.className = "final-screen";
+    final.innerHTML = `
+        <h1>You and Me Forever 💍</h1>
+        <p>Anthony ❤️ Alaina</p>
+        <p>I choose you. Every single time.</p>
+    `;
+    document.body.appendChild(final);
+    confetti({particleCount: 300, spread: 120});
+}
+
+function updateTimer() {
+    const startDate = new Date("August 15, 2024 00:00:00");
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    document.getElementById("timer").innerText =
+        days + " days " + hours + " hours " + minutes + " minutes together ❤️";
+}
+
+setInterval(updateTimer, 60000);
+</script>
+
+</body>
+</html>
